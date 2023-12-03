@@ -1,0 +1,47 @@
+import { Alert, AlertIcon, Button, Input } from "@chakra-ui/react";
+import { useState } from "react";
+
+const Login = () => {
+  const [Input, setInput] = useState({
+    email: "",
+    password: "",
+  });
+  return (
+    <>
+      <Input
+        placeholder="Email"
+        fontSize={14}
+        type="email"
+        size={"sm"}
+        value={Input.email}
+        onChange={(e) => setInput({ ...Input, email: e.target.value })}
+      />
+      <Input
+        placeholder="Password"
+        fontSize={14}
+        size={"sm"}
+        type="password"
+        value={Input.password}
+        onChange={(e) => setInput({ ...Input, password: e.target.value })}
+      />
+      {error && (
+        <Alert status="error" fontSize={13} p={2} borderRadius={4}>
+          <AlertIcon fontSize={12} />
+          {error.message}
+        </Alert>
+      )}
+      <Button
+        w={"full"}
+        colorScheme="blue"
+        size={"sm"}
+        fontSize={14}
+        isLoading={loading}
+        onClick={() => Login(Input)}
+      >
+        Log in
+      </Button>
+    </>
+  );
+};
+
+export default Login;
