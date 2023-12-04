@@ -1,4 +1,4 @@
-import { Box, Flex, Link, Tooltip } from "@chakra-ui/react";
+import { Avatar, Box, Flex, Link, Tooltip } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 import {
   InstagramLogo,
@@ -7,6 +7,8 @@ import {
   NotificationsLogo,
   SearchLogo,
 } from "../../assets/constants";
+
+import { BiLogOut } from "react-icons/bi";
 import SidebarItems from "./SidebarItems";
 
 import { AiFillHome } from "react-icons/ai";
@@ -29,6 +31,11 @@ const Sidebar = () => {
     {
       icon: <CreatePostLogo />,
       text: "Create",
+    },
+    {
+      icon: <Avatar size={"sm"} name="Burak Orkmez" src="/profilepic.png" />,
+      text: "Profile",
+      link: "/assprogrammer",
     },
   ];
   return (
@@ -88,6 +95,7 @@ const Sidebar = () => {
                 mt={items.length === 1 ? 4 : 2}
                 p={2}
                 w={{ base: 10, md: "full" }}
+                justifyContent={{ base: "center", md: "flex-start" }}
               >
                 {items.icon}
                 <Box display={{ base: "none", md: "block" }}>{items.text}</Box>
@@ -95,6 +103,31 @@ const Sidebar = () => {
             </Tooltip>
           ))}
         </Flex>
+        <Tooltip
+          hasArrow
+          label={"Logout"}
+          placement="right"
+          ml={1}
+          openDelay={500}
+          display={{ base: "block", md: "none" }}
+        >
+          <Link
+            display={"flex"}
+            to={"/auth"}
+            as={RouterLink}
+            alignItems={"center"}
+            gap={4}
+            _hover={{ bg: "whiteAlpha.400" }}
+            borderRadius={6}
+            p={2}
+            w={{ base: 10, md: "full" }}
+            mt={"auto"}
+            justifyContent={{ base: "center", md: "none" }}
+          >
+            <BiLogOut size={25} />
+            <Box display={{ base: "none", md: "block" }}>Logout</Box>
+          </Link>
+        </Tooltip>
       </Flex>
     </Box>
   );
