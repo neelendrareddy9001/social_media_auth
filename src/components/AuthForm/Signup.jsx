@@ -8,6 +8,7 @@ import {
   InputRightElement,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import useSignupWithEmailAndPassword from "../../hooks/useSignupWithEmailAndPassword";
 
 const Signup = () => {
   const [Inputs, setInputs] = useState({
@@ -17,6 +18,7 @@ const Signup = () => {
     password: "",
   });
   const [showPassword, setShwoPassword] = useState(false);
+  const { loading, error, signup } = useSignupWithEmailAndPassword();
 
   return (
     <>
@@ -82,6 +84,7 @@ const Signup = () => {
         size={"sm"}
         fontSize={14}
         // isLoading={loading}
+        onClick={() => signup(Inputs)}
       >
         Signup
       </Button>
