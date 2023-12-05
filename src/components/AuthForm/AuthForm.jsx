@@ -37,41 +37,8 @@ const AuthForm = () => {
       <Box border={"1px solid gray"} borderRadius={4} padding={5}>
         <VStack spacing={4}>
           <Image src="/logo.png" h={24} cursor={"pointer"} alt="instagram" />
-          <Input
-            placeholder="Email"
-            fontSize={14}
-            type="email"
-            value={Inputs.email}
-            onChange={(e) => setInputs({ ...Inputs, email: e.target.value })}
-          />
-          <Input
-            placeholder="Password"
-            fontSize={14}
-            type="password"
-            onChange={(e) => setInputs({ ...Inputs, password: e.target.value })}
-          />
 
-          {isLogin ? (
-            <Input
-              placeholder="Confirm Password"
-              value={Input.confirmPassword}
-              onChange={(e) =>
-                setInputs({ ...Inputs, confirmPassword: e.target.value })
-              }
-              fontSize={14}
-              type="password"
-            />
-          ) : null}
-
-          <Button
-            w={"full"}
-            colorScheme="blue"
-            size={"sm"}
-            fontSize={14}
-            onClick={handleAuth}
-          >
-            {isLogin ? "Log in" : "Sign Up"}
-          </Button>
+          {isLogin ? <Login /> : <Singup />}
 
           {/* ----- OR ---------- */}
           <Flex

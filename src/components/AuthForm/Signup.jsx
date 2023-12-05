@@ -23,7 +23,7 @@ const Signup = () => {
       <Input
         placeholder="Email"
         fontSize={14}
-        mb={4}
+        // mb={2}
         color={"white"}
         fontWeight={400}
         borderRadius={"8px"}
@@ -35,7 +35,7 @@ const Signup = () => {
       <Input
         placeholder="Username"
         fontSize={14}
-        mb={4}
+        // mb={2}
         color={"white"}
         fontWeight={400}
         borderRadius={"8px"}
@@ -44,14 +44,22 @@ const Signup = () => {
         value={Inputs.userName}
         onChange={(e) => setInputs({ ...Inputs, userName: e.target.value })}
       />
+      <Input
+        placeholder="Full Name"
+        fontSize={14}
+        type="text"
+        // mb={2}
+        color={"white"}
+        fontWeight={400}
+        borderRadius={"8px"}
+        size={"sm"}
+        value={Inputs.fullName}
+        onChange={(e) => setInputs({ ...Inputs, fullName: e.target.value })}
+      />
       <InputGroup>
         <Input
           placeholder="Password"
           fontSize={14}
-          mb={4}
-          color={"white"}
-          fontWeight={400}
-          borderRadius={"8px"}
           type={showPassword ? "text" : "password"}
           value={Inputs.password}
           size={"sm"}
