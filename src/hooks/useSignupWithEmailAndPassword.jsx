@@ -1,6 +1,13 @@
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth, firestore } from "../firebase/firebase";
-import { json } from "react-router-dom";
+import {
+  collection,
+  doc,
+  getDoc,
+  query,
+  setDoc,
+  where,
+} from "firebase/firestore";
 
 const useSignupWithEmailAndPassword = () => {
   const [createUserWithEmailAndPassword, user, loading, error] =
@@ -13,8 +20,9 @@ const useSignupWithEmailAndPassword = () => {
       !Inputs.username ||
       !Inputs.fullName
     ) {
-      console.log("Please fill all the required fields");
+      return;
     }
+
     try {
       const newUser = await createUserWithEmailAndPassword(
         Inputs.email,
