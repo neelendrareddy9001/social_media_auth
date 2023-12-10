@@ -8,10 +8,14 @@ import {
   setDoc,
   where,
 } from "firebase/firestore";
+import useShowToast from "./useShowToast";
+import useAuthStore from "../Store/authStore";
 
 const useSignupWithEmailAndPassword = () => {
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
+  const showToast = useShowToast();
+  const loginUser = useAuthStore((state) => state.login);
 
   const signup = async (Inputs) => {
     if (
@@ -35,9 +39,9 @@ const useSignupWithEmailAndPassword = () => {
       if (newUser) {
         const userDoc = {
           uid: newUser.user.uid,
-          email: inputs.email,
-          username: inputs.username,
-          fullName: inputs.fullName,
+          email: Inputs.email,
+          username: Inputs.username,
+          fullName: Inputs.fullName,
           bio: "",
           profilePicURL: "",
           followers: [],
@@ -45,7 +49,7 @@ const useSignupWithEmailAndPassword = () => {
           posts: [],
           createdAt: Date.now(),
         };
-        await userDoc(doc(firestore, "users", newUser.user.uid), userDoc);
+        await setDoc(doc(firestore, "users", newUser.user.uid), userDoc);
         localStorage.setItem("user-info", JSON.stringify(userDoc));
       }
     } catch (error) {
