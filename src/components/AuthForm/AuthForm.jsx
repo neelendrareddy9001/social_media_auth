@@ -14,7 +14,7 @@ import GoogleAuth from "./GoogleAuth";
 import { useNavigate } from "react-router-dom";
 
 const AuthForm = () => {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   const navigate = useNavigate();
   const [Inputs, setInputs] = useState({
     email: "",

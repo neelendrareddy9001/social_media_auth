@@ -63,6 +63,8 @@ const Signup = () => {
           placeholder="Password"
           fontSize={14}
           type={showPassword ? "text" : "password"}
+          fontWeight={400}
+          borderRadius={"8px"}
           value={Inputs.password}
           size={"sm"}
           onChange={(e) => setInputs({ ...Inputs, password: e.target.value })}

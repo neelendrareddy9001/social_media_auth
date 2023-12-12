@@ -12,7 +12,7 @@ import useShowToast from "./useShowToast";
 import useAuthStore from "../Store/authStore";
 
 const useSignupWithEmailAndPassword = () => {
-  const [createUserWithEmailAndPassword, user, loading, error] =
+  const [createUserWithEmailAndPassword, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
   const showToast = useShowToast();
   const loginUser = useAuthStore((state) => state.login);
@@ -24,6 +24,17 @@ const useSignupWithEmailAndPassword = () => {
       !Inputs.username ||
       !Inputs.fullName
     ) {
+      showToast("Error", "Please fill all the fields are necessary", "error");
+      return;
+    }
+
+    const userRef = collection(firestore, "users");
+
+    const q = query(userRef, where("username", "==", Inputs.username));
+    const querySnapshot = await getDoc(q);
+
+    if (!querySnapshot.empty) {
+      showToast("Error", "Username already exists", "error");
       return;
     }
 
@@ -33,7 +44,9 @@ const useSignupWithEmailAndPassword = () => {
         Inputs.password
       );
       if (!newUser && error) {
+        showToast("Error", error.message, "error");
         console.log(error);
+        return;
       }
 
       if (newUser) {
@@ -51,8 +64,10 @@ const useSignupWithEmailAndPassword = () => {
         };
         await setDoc(doc(firestore, "users", newUser.user.uid), userDoc);
         localStorage.setItem("user-info", JSON.stringify(userDoc));
+        loginUser(userDoc);
       }
     } catch (error) {
+      showToast("Error", error.message, "error");
       console.log(error);
     }
   };
