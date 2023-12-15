@@ -3,7 +3,7 @@ import { useState } from "react";
 import useLogin from "../../hooks/useLogin";
 
 const Login = () => {
-  const [Input, setInput] = useState({
+  const [Inputs, setInput] = useState({
     email: "",
     password: "",
   });
@@ -15,16 +15,16 @@ const Login = () => {
         fontSize={14}
         type="email"
         size={"sm"}
-        value={Input.email}
-        onChange={(e) => setInput({ ...Input, email: e.target.value })}
+        value={Inputs.email}
+        onChange={(e) => setInput({ ...Inputs, email: e.target.value })}
       />
       <Input
         placeholder="Password"
         fontSize={14}
         size={"sm"}
         type="password"
-        value={Input.password}
-        onChange={(e) => setInput({ ...Input, password: e.target.value })}
+        value={Inputs.password}
+        onChange={(e) => setInput({ ...Inputs, password: e.target.value })}
       />
       {error && (
         <Alert status="error" fontSize={13} p={2} borderRadius={4}>
@@ -38,7 +38,7 @@ const Login = () => {
         size={"sm"}
         fontSize={14}
         isLoading={loading}
-        onClick={() => Login(Input)}
+        onClick={() => Login(Inputs)}
       >
         Log in
       </Button>

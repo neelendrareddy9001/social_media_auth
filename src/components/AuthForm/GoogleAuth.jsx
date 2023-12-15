@@ -1,8 +1,9 @@
 import { Flex, Image, Text } from "@chakra-ui/react";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
-import { auth } from "../../firebase/firebase";
+import { auth, firestore } from "../../firebase/firebase";
 import useShowToast from "../../hooks/useShowToast";
 import useAuthStore from "../../Store/authStore";
+import { doc, setDoc } from "firebase/firestore";
 
 const GoogleAuth = ({ prefix }) => {
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
@@ -10,9 +11,31 @@ const GoogleAuth = ({ prefix }) => {
   const loginUser = useAuthStore((state) => state.login);
 
   const handleGoogleAuth = async () => {
-    const newUser = await signInWithGoogle();
-    if (!newUser && error) {
-      showToast("Error", erro);
+    try {
+      const newUser = await signInWithGoogle();
+      if (!newUser && error) {
+        showToast("Error", error.message, "error");
+        return;
+      }
+      if (newUser) {
+        const userDoc = {
+          uid: newUser.user.uid,
+          email: newUser.user.email,
+          username: newUser.user.email.split("@")[0],
+          fullName: newUser.user.displayName,
+          bio: "",
+          profilePicUrl: newUser.user.photoURL,
+          followers: [],
+          following: [],
+          posts: [],
+          createdAt: Date.now(),
+        };
+        await setDoc(doc(firestore, "user", newUser.user.uid), userDoc);
+        localStorage.setItem("user-info", JSON.stringify(userDoc));
+        loginUser(userDoc);
+      }
+    } catch (error) {
+      showToast("Error", error.message, "error");
     }
   };
 
