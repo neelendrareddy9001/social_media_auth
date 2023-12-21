@@ -28,6 +28,27 @@ const ProfileHeader = () => {
           alignItems="As a programmer logo "
         />
       </AvatarGroup>
+
+      <VStack alignItems={"start"} gap={2} mx={auto} flex={1}>
+        <Flex
+          gap={4}
+          direction={{ base: "column", sm: "row" }}
+          justifyContent={{ base: "center", sm: "flex-start" }}
+          alignItems={"center"}
+          w={"full"}
+        >
+          <Text fontSize={{ base: "sm", md: "lg" }}></Text>
+          <Flex gap={4} alignItems={"center"} justifyContent={"center"}>
+            <Button
+              bg={"white"}
+              color={"black"}
+              _hover={{ base: "xs", md: "sm" }}
+            >
+              Edit Profile
+            </Button>
+          </Flex>
+        </Flex>
+      </VStack>
     </Flex>
   );
 };
